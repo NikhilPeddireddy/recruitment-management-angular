@@ -1,0 +1,34 @@
+
+<div *ngIf="candidate">
+  
+  <div *ngIf="!candidate.evaluated">
+    <h3>Evaluate Candidate: {{ candidate.name }}</h3>
+
+ 
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+    <div>
+      <label for="score">Score (0-100):</label>
+      <input
+        type="number"
+        id="score"
+        [(ngModel)]="score"
+        class="form-control"
+        min="0"
+        max="100"
+        placeholder="Enter the score"
+      />
+    </div>
+
+    <div>
+      <button (click)="handleSubmit()" class="btn btn-primary">
+        Submit Evaluation
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="!candidate">
+  <p>No candidates to evaluate.</p>
+</div>

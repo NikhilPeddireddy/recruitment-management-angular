@@ -1,0 +1,96 @@
+<div class="card-header bg-secondary text-white">
+  <h2 class="text-center">Candidate List</h2>
+</div>
+<div class="container mt-4">
+  
+   
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by name, email, or position"
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+      />
+    </div>
+    <div class="col-md-6">
+      <select
+        class="form-select"
+        [(ngModel)]="filterStage"
+        (change)="onFilter()"
+      >
+        <option value="">Filter by Stage</option>
+        <option value="Application Received">Application Received</option>
+        <option value="Interview Scheduled">Interview Scheduled</option>
+        <option value="Offered">Offered</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+    </div>
+  </div>
+
+ 
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <button class="btn btn-secondary" (click)="onReset()">Reset</button>
+    </div>
+  </div>
+
+ 
+  <div class="row">
+    <div class="col-md-12 table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Position</th>
+            <th>Stage</th>
+            <th>Evaluation Status</th>
+            <th>Resume</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let candidate of filteredCandidates">
+            <td>{{ candidate?.name }}</td>
+            <td>{{ candidate?.email }}</td>
+            <td>{{ candidate?.phone }}</td>
+            <td>{{ candidate?.position }}</td>
+            <td>{{candidate?.stage}}</td>
+            <td>
+              <span
+                *ngIf="candidate?.evaluated"
+                [ngClass]="{
+                  'badge': true,
+                  'bg-success': candidate.status === 'Pass',
+                  'bg-danger': candidate.status === 'Fail'
+                }"
+              >
+                {{ candidate.status }}
+              </span>
+              <span *ngIf="!candidate?.evaluated" class="text-danger">Not Evaluated</span>
+            </td>
+            <td>
+              
+              <a *ngIf="candidate.resume" [href]="candidate.resume" target="_blank" class="btn btn-info btn-sm">
+                View Resume
+              </a>
+              <span *ngIf="!candidate.resume">No Resume</span>
+            </td>
+            <td>
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="onDeleteCandidate(candidate.id)"
+                [disabled]="!candidate.id || candidate.id === undefined"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<div class="card-header bg-secondary text-white">
+  <h1 class="text-center">Recruitment Dashboard</h1>
+</div>
+<div class="row mt-4">
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h5>Application Received</h5>
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li *ngFor="let candidate of groupByStage('Application Received')" class="list-group-item">
+            {{ candidate.name }}
+            <div>
+              <button
+              *ngIf="candidate.stage === 'Application Received'"
+              class="btn btn-sm btn-success float-end ms-2"
+              (click)="onStageChange(candidate.id, 'Interview Scheduled')"
+            >
+             Schedule Interview
+            </button>
+            <button
+              *ngIf="candidate.stage === 'Application Received'"
+              class="btn btn-sm btn-danger float-end"
+              (click)="onStageChange(candidate.id, 'Rejected')"
+            >
+              Reject
+            </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header bg-warning text-dark">
+        <h5>Interview Scheduled</h5>
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li *ngFor="let candidate of groupByStage('Interview Scheduled')" class="list-group-item">
+            {{ candidate.name }}
+            <button
+              *ngIf="candidate.stage === 'Interview Scheduled'"
+              class="btn btn-sm btn-success float-end ms-2"
+              (click)="onStageChange(candidate.id, 'Offered')"
+            >
+              Offer
+            </button>
+            <button
+              *ngIf="candidate.stage === 'Interview Scheduled'"
+              class="btn btn-sm btn-danger float-end"
+              (click)="onStageChange(candidate.id, 'Rejected')"
+            >
+              Reject
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header bg-success text-white">
+        <h5>Offered</h5>
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li *ngFor="let candidate of groupByStage('Offered')" class="list-group-item">
+            {{ candidate.name }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header bg-secondary text-white">
+        <h5>Rejected</h5>
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li *ngFor="let candidate of groupByStage('Rejected')" class="list-group-item">
+            {{ candidate.name }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
